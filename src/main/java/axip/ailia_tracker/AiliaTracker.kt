@@ -4,10 +4,13 @@ import android.util.Log
 
 class AiliaTracker(
     algorithm: Int,
-    settings: AiliaTrackerSettings
+    settings: AiliaTrackerSettings,
+    flags: Int = 0,
 ) {
     companion object {
         const val AILIA_TRACKER_FLAG_NONE = 0
+        const val AILIA_TRACKER_FLAG_ALLOW_WIDE_ASPECT_RATIO = 1
+
         const val AILIA_TRACKER_ALGORITHM_BYTE_TRACK = 0
 
         init {
@@ -19,7 +22,7 @@ class AiliaTracker(
     private var tracker: Long = 0
 
     init {
-        tracker = create(algorithm, settings)
+        tracker = create(algorithm, settings, flags ~ )
         if (tracker == 0L) {
             Log.e(tag, "Failed to create tracker")
         }
@@ -51,7 +54,7 @@ class AiliaTracker(
         destroy(tracker)
     }
 
-    private external fun create(algorithm: Int, settings: AiliaTrackerSettings): Long
+    private external fun create(algorithm: Int, settings: AiliaTrackerSettings, flags: Int): Long
     private external fun destroy(tracker: Long)
     private external fun addTarget(tracker: Long, category: Int, prob: Float, x: Float, y: Float, w: Float, h: Float): Int
     private external fun compute(tracker: Long): Int
