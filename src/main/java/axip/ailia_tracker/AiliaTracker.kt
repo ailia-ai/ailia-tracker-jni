@@ -22,7 +22,7 @@ class AiliaTracker(
     private var tracker: Long = 0
 
     init {
-        tracker = create(algorithm, settings, flags ~ )
+        tracker = create(algorithm, settings, flags)
         if (tracker == 0L) {
             Log.e(tag, "Failed to create tracker")
         }
